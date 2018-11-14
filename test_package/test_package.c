@@ -87,7 +87,7 @@ void onConnect(void *context, MQTTAsync_successData *response)
     opts.context = client;
 
     pubmsg.payload = PAYLOAD;
-    pubmsg.payloadlen = strlen(PAYLOAD);
+    pubmsg.payloadlen = (int) strlen(PAYLOAD);
     pubmsg.qos = QOS;
     pubmsg.retained = 0;
     deliveredtoken = 0;
@@ -103,7 +103,6 @@ int main(int argc, char *argv[])
 {
     MQTTAsync client;
     MQTTAsync_connectOptions conn_opts = MQTTAsync_connectOptions_initializer;
-    int rc;
 
     MQTTAsync_create(&client, ADDRESS, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL);
 

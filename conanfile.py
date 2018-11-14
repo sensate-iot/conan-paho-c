@@ -6,7 +6,7 @@ class PahocConan(ConanFile):
     name = "paho-c"
     version = "1.2.0-1"
     license = "EPL-1.0"
-    homepage = "https://github.com/eclipse/paho.mqtt.c"
+    homepage = "https://github.com/sensate-iot/paho.mqtt.c"
     description = """The Eclipse Paho project provides open-source client implementations of MQTT
 and MQTT-SN messaging protocols aimed at new, existing, and emerging applications for the Internet
 of Things (IoT)"""
