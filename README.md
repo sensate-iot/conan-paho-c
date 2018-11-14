@@ -14,14 +14,15 @@ The packages generated with this **conanfile** can be found in [Bintray](https:/
 
 ### Basic setup
 
-    $ conan install paho-c/1.2.0@conan/stable
+    $ conan remote add paho.mqtt.c https://api.bintray.com/conan/bietje/paho.mqtt.c
+    $ conan install paho-c/1.2.0-1@conan/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    paho-c/1.2.0@conan/stable
+    paho-c/1.2.0-1@conan/stable
 
     [generators]
     txt
