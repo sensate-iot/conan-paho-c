@@ -4,19 +4,19 @@ from conans import ConanFile, CMake, tools
 
 class PahocConan(ConanFile):
     name = "paho-c"
-    version = "1.2.0"
+    version = "1.2.0-1"
     license = "EPL-1.0"
     homepage = "https://github.com/eclipse/paho.mqtt.c"
     description = """The Eclipse Paho project provides open-source client implementations of MQTT
 and MQTT-SN messaging protocols aimed at new, existing, and emerging applications for the Internet
 of Things (IoT)"""
-    url = "https://github.com/conan-community/conan-paho-c"
+    url = "https://github.com/sensate-iot/conan-paho-c"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False],
                "fPIC": [True, False],
                "SSL": [True, False],
-               "async": [True, False]}
-    default_options = "shared=False", "fPIC=True", "SSL=False", "async=True"
+               "async_client": [True, False]}
+    default_options = "shared=False", "fPIC=True", "SSL=False", "async_client=True"
     generators = "cmake"
     exports = "LICENSE"
 
@@ -66,7 +66,7 @@ conan_basic_setup()""")
         self.copy("*.h", dst="include", src="%s/src" % self.source_subfolder)
         pattern = "*paho-mqtt3"
         pattern += "s" if self.options.SSL else ""
-        pattern += "a" if self.options.async else "c"
+        pattern += "a" if self.options.async_client else "c"
         pattern += "-static" if not self.options.shared else ""
         for extension in [".a", ".dll.a", ".lib", ".dll", ".dylib", ".*.dylib", ".so*"]:
             self.copy(pattern + extension, dst="bin" if extension.endswith("dll") else "lib",

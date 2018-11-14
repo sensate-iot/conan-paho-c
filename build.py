@@ -20,9 +20,9 @@ if __name__ == "__main__":
     name = get_name_from_recipe()
     version = get_version_from_recipe()
     reference = "{0}/{1}".format(name, version)
-    username = "conan"
-    login_username = "conanbot"
-    upload_remote = "https://api.bintray.com/conan/conan-community/{0}".format(username)
+    username = "bietje"
+    login_username = "bietje"
+    upload_remote = "https://api.bintray.com/conan/bietje/{0}".format(username)
 
     builder = ConanMultiPackager(
         stable_branch_pattern="stable/*",
