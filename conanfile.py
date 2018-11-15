@@ -4,7 +4,7 @@ from conans import ConanFile, CMake, tools
 
 class PahocConan(ConanFile):
     name = "paho-c"
-    version = "1.2.0-1"
+    version = "1.2.1-1"
     license = "EPL-1.0"
     homepage = "https://github.com/sensate-iot/paho.mqtt.c"
     description = """The Eclipse Paho project provides open-source client implementations of MQTT
@@ -16,7 +16,7 @@ of Things (IoT)"""
                "fPIC": [True, False],
                "SSL": [True, False],
                "async_client": [True, False]}
-    default_options = "shared=False", "fPIC=True", "SSL=False", "async_client=True"
+    default_options = "shared=False", "fPIC=True", "SSL=True", "async_client=True"
     generators = "cmake"
     exports = "LICENSE"
 
@@ -36,8 +36,8 @@ of Things (IoT)"""
         os.rename("paho.mqtt.c-%s" % self.version, self.source_subfolder)
         cmakelists_path = "%s/CMakeLists.txt" % self.source_subfolder
         tools.replace_in_file(cmakelists_path,
-                              "PROJECT(\"paho\" C)",
-                              """PROJECT("paho" C)
+                              "PROJECT(\"Eclipse Paho C\" C)",
+                              """PROJECT("Eclipse Paho C" C)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()""")
         tools.replace_in_file(cmakelists_path, "ADD_SUBDIRECTORY(test)", "")
@@ -58,6 +58,7 @@ conan_basic_setup()""")
         cmake.definitions["PAHO_WITH_SSL"] = self.options.SSL
         cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
+        cmake.install()
 
     def package(self):
         self.copy("edl-v10", src=self.source_subfolder, dst="licenses", keep_path=False)
@@ -74,6 +75,7 @@ conan_basic_setup()""")
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
+
         if self.settings.os == "Windows":
             if not self.options.shared:
                 self.cpp_info.libs.append("ws2_32")
